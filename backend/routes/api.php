@@ -23,4 +23,3 @@ Route::controller(AuthController::class)
             ->name('me')
             ->middleware('auth:api');
     });
-
