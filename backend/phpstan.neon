@@ -30,6 +30,9 @@ parameters:
                 - Illuminate\Foundation\Testing\TestCase
                 - Tests\TestCase
 
+    ignoreErrors:
+        - '#Dynamic call to static method PHPUnit\\Framework\\.*#'
+
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'
 #
