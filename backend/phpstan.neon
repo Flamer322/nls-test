@@ -23,6 +23,7 @@ parameters:
                 - Illuminate\Foundation\Auth\User
                 - App\Http\Controllers\Controller
                 - Spatie\LaravelData\Data
+                - Tymon\JWTAuth\Facades\JWTAuth
 
                 - Illuminate\Database\Migrations\Migration
                 - Illuminate\Database\Eloquent\Factories\Factory

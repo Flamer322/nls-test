@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Facades\JWTAuth;
 use App\Http\Data\Auth\LoginData;
 use App\Http\Data\Auth\RegisterData;
 use App\Models\User;
@@ -11,7 +12,6 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 final readonly class AuthService
 {
