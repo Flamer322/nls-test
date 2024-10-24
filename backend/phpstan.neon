@@ -22,6 +22,7 @@ parameters:
                 - Illuminate\Support\ServiceProvider
                 - Illuminate\Foundation\Auth\User
                 - App\Http\Controllers\Controller
+                - Spatie\LaravelData\Data
 
                 - Illuminate\Database\Migrations\Migration
                 - Illuminate\Database\Eloquent\Factories\Factory
