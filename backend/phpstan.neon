@@ -1,0 +1,39 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/ergebnis/phpstan-rules/rules.neon
+
+parameters:
+    paths:
+        - app/
+        - bootstrap/app.php
+        - bootstrap/providers.php
+        - database/
+        - routes/
+        - tests/
+
+    # Level 9 is the highest level
+    level: 5
+
+    ergebnis:
+        noExtends:
+            classesAllowedToBeExtended:
+                - Illuminate\Support\ServiceProvider
+                - Illuminate\Foundation\Auth\User
+                - App\Http\Controllers\Controller
+
+                - Illuminate\Database\Migrations\Migration
+                - Illuminate\Database\Eloquent\Factories\Factory
+                - Illuminate\Database\Seeder
+
+                - Illuminate\Foundation\Testing\TestCase
+                - Tests\TestCase
+
+#    ignoreErrors:
+#        - '#PHPDoc tag @var#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
+#
+#    checkMissingIterableValueType: false
