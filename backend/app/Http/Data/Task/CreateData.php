@@ -13,7 +13,9 @@ use Spatie\LaravelData\Support\Validation\ValidationContext;
 final class CreateData extends Data
 {
     public string $name;
+
     public ?string $description = null;
+
     public ?string $completedAt = null;
 
     public static function rules(ValidationContext $context): array

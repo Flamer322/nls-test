@@ -15,10 +15,14 @@ use Spatie\LaravelData\Support\Validation\ValidationContext;
 final class GetData extends Data
 {
     public int $page;
+
     public int $perPage = 10;
+
     #[WithCast(StringBoolCast::class)]
     public ?bool $isCompleted = null;
+
     public ?string $sortField = 'id';
+
     public ?string $sortDirection = 'asc';
 
     public static function rules(ValidationContext $context): array
