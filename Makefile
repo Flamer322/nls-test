@@ -1,6 +1,6 @@
 init: docker-down-clear \
 	docker-build docker-up \
-	composer-install make-env generate-key migrate
+	composer-install make-env generate-key migrate generate-jwt
 up: docker-up
 down: docker-down
 restart: down up

@@ -1,0 +1,293 @@
+openapi: 3.0.0
+info:
+  title: Task Management API
+  version: 1.0.0
+  description: API для управления задачами и аутентификации пользователей.
+
+servers:
+  - url: http://localhost:8080/api
+  - url: https://localhost:8443/api
+
+paths:
+  /auth/register:
+    post:
+      summary: Регистрация нового пользователя
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: john.doe@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        201:
+          description: Пользователь успешно зарегистрирован.
+        422:
+          description: Ошибка валидации.
+  /auth/login:
+    post:
+      summary: Логин пользователя
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: john.doe@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        204:
+          description: Успешный логин.
+        422:
+          description: Ошибка аутентификации.
+  /auth/logout:
+    post:
+      summary: Логаут пользователя
+      tags:
+        - Authentication
+      responses:
+        204:
+          description: Успешный логаут.
+  /auth/me:
+    post:
+      summary: Получение информации о текущем пользователе
+      tags:
+        - Authentication
+      responses:
+        200:
+          description: Информация о пользователе.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+
+  /tasks/{page}:
+    get:
+      summary: Получение списка задач с пагинацией
+      tags:
+        - Tasks
+      parameters:
+        - name: page
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: is_completed
+          in: query
+          schema:
+            type: string
+            enum: [true, false]
+            description: Фильтр по завершению задачи.
+        - name: sort_field
+          in: query
+          schema:
+            type: string
+            enum: [id, name, description, user_id]
+            description: Поле для сортировки.
+        - name: sort_direction
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+            description: Направление сортировки.
+      responses:
+        200:
+          description: Успешно. Возвращает список задач.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Общее количество задач.
+                    example: 50
+                  tasks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                          nullable: true
+                        completed_at:
+                          type: string
+                          nullable: true
+                          format: date-time
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+
+  /tasks:
+    post:
+      summary: Создание новой задачи
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: New Task
+                description:
+                  type: string
+                  nullable: true
+                  example: Optional task description
+                completed_at:
+                  type: string
+                  nullable: true
+                  format: date
+                  example: 2024-10-27
+      responses:
+        201:
+          description: Задача успешно создана.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  completed_at:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+
+  /tasks/{task}:
+    patch:
+      summary: Обновление задачи
+      tags:
+        - Tasks
+      parameters:
+        - name: task
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated Task
+                description:
+                  type: string
+                  nullable: true
+                  example: Updated description
+                completed_at:
+                  type: string
+                  nullable: true
+                  format: date
+                  example: 2024-10-28
+      responses:
+        200:
+          description: Задача успешно обновлена.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  completed_at:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+
+    delete:
+      summary: Удаление задачи
+      tags:
+        - Tasks
+      parameters:
+        - name: task
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Задача успешно удалена.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  completed_at:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time

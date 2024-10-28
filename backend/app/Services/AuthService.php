@@ -8,17 +8,12 @@ use App\Facades\JWTAuth;
 use App\Http\Data\Auth\LoginData;
 use App\Http\Data\Auth\RegisterData;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 final readonly class AuthService
 {
-    public function __construct(
-        private UserRepository $userRepository,
-    ) {}
-
     public function register(RegisterData $data): void
     {
         $user = new User([
@@ -27,7 +22,7 @@ final readonly class AuthService
             'password' => Hash::make($data->password),
         ]);
 
-        $this->userRepository->save($user);
+        $user->save();
     }
 
     public function login(LoginData $data): void
