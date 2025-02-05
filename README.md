@@ -13,7 +13,7 @@ Application routes are available at http://localhost:8080/api or https://localho
 ## Project structure
 
 - **.github/** - directory with configuration files for GitHub actions
-- **backend/** - Node.js (Moleculer) application with REST API
+- **backend/** - PHP (Laravel) application with REST API
 - **docker/** - application code
 - **docker-compose.yaml** - compose file describing project environment
 - **Makefile** - file helping automate routine actions
